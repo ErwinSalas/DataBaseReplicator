@@ -2,9 +2,10 @@
     width: 300px;
    height: 768px;
    border-width:5px; 
-   border-color: 
+   border-color: black;
 
 }
+
 .side-bar-header{
     width: 100%;
     background: rgba(99,24,240,1);

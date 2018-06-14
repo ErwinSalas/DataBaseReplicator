@@ -1,0 +1,47 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Conectar A base de datos</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="host">Host</label>
+        <div class="input-group">
+          <input id="host" class="form-control" placeholder="host de la maquina">
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label for="port">Puerto</label>
+        <div class="input-group">
+          <input id="port" class="form-control" placeholder="puerto">
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="name">Base</label>
+
+        <div class="input-group">
+          <input id="name" class="form-control" placeholder="base">
+
+        </div>
+      </div>
+        <div class="form-group">
+          <label for="host">Host</label>
+          <div class="input-group">
+
+            <input type="password" id="password" class="form-control" placeholder="" name="dp">
+          
+          </div>
+        </div>
+    </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+    </div>
+</ng-template>
+
+<button class="btn  btn-outline-primary" (click)="open(content)">connectar</button>
+

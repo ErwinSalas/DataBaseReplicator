@@ -61,7 +61,7 @@ private apiRoot = 'http://localhost:8000/api/'; // Ruta por el archivo api.php e
      * @memberof RequestService
      */
     postRequest(url, data, context, callback) {
-        let params = 'json=' + JSON.stringify(data); // El backend recogerá un parametro json
+        const params = 'json=' + JSON.stringify(data); // El backend recogerá un parametro json
         this.http
             .post(this.apiRoot + url, params, this.headers)
             .subscribe((res: any) => callback(context, res));
@@ -78,7 +78,7 @@ private apiRoot = 'http://localhost:8000/api/'; // Ruta por el archivo api.php e
      * @memberof RequestService
      */
     putRequest(url, data, context, callback) {
-        let params = 'json=' + JSON.stringify(data); // El backend recogerá un parametro json
+        const params = 'json=' + JSON.stringify(data); // El backend recogerá un parametro json
         this.http
             .put(this.apiRoot + url, params, this.headers)
             .subscribe((res: any) => callback(context, res));

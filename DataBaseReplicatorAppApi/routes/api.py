@@ -1,33 +1,27 @@
+from controllers.DatabaseController import DatabaseController
+from models.Database import Database
+from models.DbConfig import DbConfig
+from state.Status import Status
+
 __author__ = 'Erwin'
 from flask import Flask,request,render_template
 
 app = Flask(__name__)
 app.secret_key = 'admin'
 
+controller=DatabaseController()
 
+@app.route('/connect/<db>', methods=['POST'])
+def connect(db):
+   controller.conectOriginal(request.json,db)
 
-@app.route('/connect')
-def connect():
-   content =request.json
-
-
-
-
-@app.route('/test/crecimiento')
-def test_crecimiento():
-   return render_template('test_inserts.html')
+@app.route('/getAllDatabase', methods=['GET'])
+def getDataBase(db):
+    pass
 
 
 
-@app.route('/test/configs', methods=['POST'])
-def getTestConfigs():
-    connections = int(request.form['connections'])
-    time = int(request.form['time'])
-    operations = int(request.form['operation_number'])
-    conection = DBController.DBController('centralDB', 'postgres', 'aniram', 'localhost')
-    ob = Objects.Configs(connections,time ,operations)
-    conection.connection(ob)
-    return render_template('test_result.html', results=conection.connection(ob))
+
 
 
 if __name__ == '__main__':
