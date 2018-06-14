@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<style>
+
+.side-bar-container{
+    width: 300px;
+   height: 768px;
+   border-width:5px;
+   border-color: black;
+
+}
+
+.side-bar-header{
+    width: 100%;
+    background: rgba(99,24,240,1);
+    height: 160px;
+background: -moz-linear-gradient(left, rgba(99,24,240,1) 0%, rgba(57,27,163,1) 0%, rgba(93,164,240,1) 46%, rgba(85,65,232,1) 84%, rgba(83,39,230,1) 94%, rgba(83,39,230,1) 100%);
+background: -webkit-linear-gradient(left, rgba(99,24,240,1) 0%, rgba(57,27,163,1) 0%, rgba(93,164,240,1) 46%, rgba(85,65,232,1) 84%, rgba(83,39,230,1) 94%, rgba(83,39,230,1) 100%);
+background: -o-linear-gradient(left, rgba(99,24,240,1) 0%, rgba(57,27,163,1) 0%, rgba(93,164,240,1) 46%, rgba(85,65,232,1) 84%, rgba(83,39,230,1) 94%, rgba(83,39,230,1) 100%);
+background: -ms-linear-gradient(left, rgba(99,24,240,1) 0%, rgba(57,27,163,1) 0%, rgba(93,164,240,1) 46%, rgba(85,65,232,1) 84%, rgba(83,39,230,1) 94%, rgba(83,39,230,1) 100%);
+background: linear-gradient(to right, rgba(99,24,240,1) 0%, rgba(57,27,163,1) 0%, rgba(93,164,240,1) 46%, rgba(85,65,232,1) 84%, rgba(83,39,230,1) 94%, rgba(83,39,230,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6318f0', endColorstr='#5327e6', GradientType=1 );
+
+}
+.side-bar-body{
+    width: 100%;
+    background: rgb(201, 189, 189);
+    height: 400px;
+
+}
+.side-bar-header-title{
+    margin-top: 110px;
+    position: absolute;
+    color: aliceblue;
+}
+h3{
+    padding: 10px;
+}
+.subtitle{
+    font-style: bold;
+    color: brown;
+    padding: 10px;
+    margin: 0px;
+}
+.ident{
+    margin-left: 5%;
+}
+hr{
+    margin: 0%;
+}
+
+</style>
+</head>
+<body>
+<div class="side-bar-container .z-depth-3" style="position: absolute">
+    <div class="side-bar-header">
+        <h3 class="side-bar-header-title">
+    Data base Replicator</h3>
+    </div>
+    <div class="side-bar-body">
+        <p class="subtitle">ESQUEMAS</p>
+        <hr>
+        <div class="accordion" id="accordionExample" style=" overflow:scroll;">
+            {% for schema in database.schemas %}
+              <div class="card">
+                <div class="card-header" id="headingOne{{schema.name}}">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{schema.name}}" aria-controls="{{schema.name}}">
+                    <span><img src="{{url_for( 'static',filename='diagram-with-squares.svg')}}" height="24" width="24"> {{schema.name}}</span>
+
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="{{schema.name}}" class="collapse show" aria-labelledby="headingOne{{schema.name}}" data-parent="#accordionExample">
+                  <div class="card-body">
+                    <ol>
+                        {%if schema.tables!=none%}
+                            {% for table in schema.tables %}
+                          <li>
+                              <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input" onchange="addTable('{{schema.name}}','{{table}}')" >
+                                  <span>
+                                      <img src="{{url_for( 'static',filename='table.svg')}}" height="24" width="24"> {{table}}
+                                  </span>
+                              </div>
+                          </li>
+                            {% endfor %}
+                        {% endif %}
+
+
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div style="margin-left: 30%">
+        <form id="form">
+          <div class="form-group">
+            <label for="host">Host</label>
+            <div class="input-group">
+              <input id="host" name="host" class="form-control" placeholder="host de la maquina">
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label for="port">Puerto</label>
+            <div class="input-group">
+              <input id="port" name="port" class="form-control" placeholder="puerto">
+            </div>
+          </div>
+          <div class="form-group">
+              <label for="name">Base</label>
+
+            <div class="input-group">
+              <input id="name" name="dbname" class="form-control" placeholder="base">
+
+            </div>
+          </div>
+           <div class="form-group">
+              <label for="username">user</label>
+
+            <div class="input-group">
+              <input id="username" name="username" class="form-control" placeholder="base">
+
+            </div>
+          </div>
+            <div class="form-group">
+              <label for="password">pass</label>
+              <div class="input-group">
+
+                <input type="password" id="password" name="password" class="form-control" placeholder="">
+
+              </div>
+            </div>
+           <div class="form-group">
+              <div class="input-group">
+                <input type="submit" id="submit" class="form-control">
+              </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script>
+
+    var list=[]
+
+    function inArray(elem) {
+        var len = list.length;
+        for (var i = 0; i < len; i++) {
+            if (list[i] == elem) {
+                list.splice(list[i], 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    function addTable(schema,table){
+        var element = schema + "." + table;
+        var exist = inArray(element);
+        if (exist == false) {
+            list.push(element);
+        }
+    }
+
+    $(function() {
+    $('#submit').click(function() {
+        $.ajax({
+            url: 'http://localhot:5000/sendTablesList',
+            data: {
+                    conn:$('#form').serialize(),
+                    data:list
+                    }
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+
+</script>
+
+
+
+</body>
+</html>

@@ -20,6 +20,7 @@ class DatabaseController:
             content["port"],
             content["dbname"]
         )
+        print("1111111111111")
         db = Database(content["dbname"], config.getConnection())
         status = Status()
         if (db_type==1):

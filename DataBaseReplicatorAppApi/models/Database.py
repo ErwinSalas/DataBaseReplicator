@@ -1,9 +1,11 @@
+from models.Schema import Schema
+
+
 class Database:
-    def __init__(self, name, size,connection):
-        self.name=name
-        self.size=size
-        self.schemas=self.getSchemas()
-        self.connection=connection
+    def __init__(self, name,connection):
+        self.name = name
+        self.connection = connection
+        self.schemas = self.getSchemas()
 
     def getSchemas(self):
         list = []
@@ -12,7 +14,10 @@ class Database:
         result = cur.fetchall()
         for element in result:
             print(element)
+            schema=Schema(element[0],self.connection)
+            list.append(schema)
 
         cur.close()
+        return list
 
 
