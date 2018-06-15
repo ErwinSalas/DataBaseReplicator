@@ -92,6 +92,11 @@ def index():
 
     return render_template('index.html', database = db)
 
+@app.route('/log')
+def log():
+    return render_template('log.html')
+
+
 
 @app.route('/')
 def login():
