@@ -6,6 +6,7 @@ class Database:
         self.name = name
         self.connection = connection
         self.schemas = self.getSchemas()
+        print("database")
 
     def getSchemas(self):
         list = []

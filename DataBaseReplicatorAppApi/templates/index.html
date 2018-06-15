@@ -69,7 +69,7 @@ hr{
               <div class="card">
                 <div class="card-header" id="headingOne{{schema.name}}">
                   <h5 class="mb-0">
-                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{schema.name}}" aria-controls="{{schema.name}}">
+                    <button class="btn btn-info" type="button" data-toggle="collapse"  aria-expanded="false" data-target="#{{schema.name}}" aria-controls="{{schema.name}}">
                     <span><img src="{{url_for( 'static',filename='diagram-with-squares.svg')}}" height="24" width="24"> {{schema.name}}</span>
 
                     </button>
@@ -143,13 +143,13 @@ hr{
             </div>
            <div class="form-group">
               <div class="input-group">
-                <input type="submit" id="submit" class="form-control">
+                <input type="button" id="submit" class="form-control">
               </div>
             </div>
         </form>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 <script>
@@ -169,22 +169,27 @@ hr{
 
 
     function addTable(schema,table){
-        var element = schema + "." + table;
+        var element = table;
         var exist = inArray(element);
         if (exist == false) {
             list.push(element);
         }
     }
 
-    $(function() {
     $('#submit').click(function() {
+        console.log("ajax");
+        console.log($('#form').serialize());
+        console.log(list);
+
         $.ajax({
-            url: 'http://localhot:5000/sendTablesList',
-            data: {
-                    conn:$('#form').serialize(),
-                    data:list
-                    }
+            url: ' http://127.0.0.1:5000/sendTables' + '?' + $('#form').serialize()+'&'+list,
             type: 'POST',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: {
+                data:list
+                }
+            ,
             success: function(response) {
                 console.log(response);
             },
@@ -193,7 +198,6 @@ hr{
             }
         });
     });
-});
 
 </script>
 

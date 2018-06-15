@@ -5,11 +5,21 @@ from state.Status import Status
 
 class DatabaseController:
     def __init__(self):
-       pass
+        print("haciendo database controller")
+        pass
 
-    def copyAllDataBase(self,config):
+    def createDatabase(self, config):
         cur = config.getConnection().cursor()
-        cur.execute(str.format("CREATE DATABASE new WITH TEMPLATE %s",Status.OriginalDB.name))
+        cur.execute("CREATE DATABASE '%s' " % (Status().OriginalDB.name))
+        cur.close()
+
+    def copyTables(self,config,tables):
+        print("tables --------", tables)
+        cur = config.getConnection().cursor()
+        for table in tables:
+            cur.execute("select createTable('%s','%s','%s','%s','%s','%s') " %(table,config.host,config.port,config.dbname,config.username,config.password))
+            print("for---", table)
+        print("listo copy tables")
         cur.close()
 
     def conectOriginal(self,content,db_type):

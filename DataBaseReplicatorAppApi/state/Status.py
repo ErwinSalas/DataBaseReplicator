@@ -1,6 +1,6 @@
 class Status(object):
-
     __instance = None
+    DBName=None
     OriginalDB = None
     CopyDB = None
 
